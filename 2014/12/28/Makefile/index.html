@@ -3,17 +3,29 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Archives: 2014 | LKのOrigin</title>
+  <title>Makefile | LKのOrigin</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description">
-<meta property="og:type" content="website">
-<meta property="og:title" content="LKのOrigin">
-<meta property="og:url" content="http://liankaohk.github.io/archives/2014/">
+  <meta name="description" content="-MM 选项可以让编译器自动推断所依赖文件
+
+clean
+.PHONY : clean        clean :                -rm edit $(objects)
+前面说过，.PHONY意思表示clean是一个“伪目标”，。而在rm命令前面加了一个小减号的意思就是，也许某些文件出现问题，但不要管，继续做后面的事。当然，clean的规则不要放在文件的开头，不然，这就会变成m">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Makefile">
+<meta property="og:url" content="http://liankaohk.github.io/2014/12/28/Makefile/">
 <meta property="og:site_name" content="LKのOrigin">
-<meta property="og:description">
+<meta property="og:description" content="-MM 选项可以让编译器自动推断所依赖文件
+
+clean
+.PHONY : clean        clean :                -rm edit $(objects)
+前面说过，.PHONY意思表示clean是一个“伪目标”，。而在rm命令前面加了一个小减号的意思就是，也许某些文件出现问题，但不要管，继续做后面的事。当然，clean的规则不要放在文件的开头，不然，这就会变成m">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LKのOrigin">
-<meta name="twitter:description">
+<meta name="twitter:title" content="Makefile">
+<meta name="twitter:description" content="-MM 选项可以让编译器自动推断所依赖文件
+
+clean
+.PHONY : clean        clean :                -rm edit $(objects)
+前面说过，.PHONY意思表示clean是一个“伪目标”，。而在rm命令前面加了一个小减号的意思就是，也许某些文件出现问题，但不要管，继续做后面的事。当然，clean的规则不要放在文件的开头，不然，这就会变成m">
 
   
   
@@ -63,66 +75,7 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-Pointer-Constantness" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2014/12/31/Pointer-Constantness/" class="article-date">
-  <time datetime="2014-12-31T09:13:33.000Z" itemprop="datePublished">Dec 31 2014</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2014/12/31/Pointer-Constantness/">Pointer &amp; Constantness</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="1-How_to_decipher_the_declarations?">1.How to decipher the declarations?</h2>
-<p>Use the <span style="color:blue">Right-to-Left Rule</span><br>Here are some examples:</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> **p1; <span class="comment">// p1 is a pointer to pointer to "int const" (a constant interger)</span></div><div class="line"><span class="keyword">int</span> <span class="keyword">const</span> **p2; <span class="comment">// p2 is a pointer to pointer to "const int" (same as above)</span></div><div class="line"><span class="keyword">int</span> *<span class="keyword">const</span> *p3; <span class="comment">// p3 is a pointer to "const pointer" to int</span></div><div class="line"><span class="keyword">int</span> **<span class="keyword">const</span> p4; <span class="comment">// p4 is a "const pointe" to pointer to int</span></div></pre></td></tr></table></figure>
-
-<p>Reference: <a href="http://stackoverflow.com/questions/336585/what-does-a-const-pointer-to-pointer-mean-in-c-and-in-c" target="_blank" rel="external">What does a const pointer to pointer mean in c and in c++</a></p>
-<h2 id="2-Why_is_the_following_code_wrong?">2.Why is the following code wrong?</h2>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> i = <span class="number">10</span>;</div><div class="line"><span class="keyword">int</span>* ip = &i;</div><div class="line">cont <span class="keyword">int</span>** ipp = &ip; <span class="comment">// This line is illegal. Must change the second line to</span></div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span>* ip = &i;</div></pre></td></tr></table></figure>
-
-<p>Because if line 3 is allowed, **ip may be modified implicitely. To see how, look at the following example:</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> i = <span class="number">10</span>;</div><div class="line"><span class="keyword">int</span>* ip;</div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span>** ipp = &ip; <span class="comment">// in reality this is illegal</span></div><div class="line">*ipp = &i; <span class="comment">// this is allowed since both *ipp and &i have type "const int *",</span></div><div class="line">	   	   <span class="comment">// and now *ipp, which is ip, holds the address of i</span></div><div class="line">*ip = <span class="number">11</span>;  <span class="comment">// now we have modified i!!!</span></div></pre></td></tr></table></figure>
-
-<p>More generally, C++ allows the implicit conversion of T* to const T*, because that cannot lead to a situation like the above where a constant value is modified.<br>And</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> *<span class="keyword">const</span> *ipp = &ip;</div></pre></td></tr></table></figure>
-
-<p>would be OK because the line “*ipp = &i;” would give an error, since *ipp is a constant.<br>Reference: <a href="http://www.cplusplus.com/forum/general/12002/" target="_blank" rel="external">pointer to pointer - const correctness - C++ Forum</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-        <a data-url="http://liankaohk.github.io/2014/12/31/Pointer-Constantness/" data-id="d021uycrlweqfcun" class="article-share-link" data-share="baidu">Share</a>
-      
-
-      
-        <a href="http://liankaohk.github.io/2014/12/31/Pointer-Constantness/#disqus_thread" class="article-comment-link">Comments</a>
-      
-
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Makefile" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-Makefile" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2014/12/28/Makefile/" class="article-date">
   <time datetime="2014-12-28T07:02:42.000Z" itemprop="datePublished">Dec 28 2014</time>
@@ -135,8 +88,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2014/12/28/Makefile/">Makefile</a>
+    <h1 class="article-title" itemprop="name">
+      Makefile
     </h1>
   
 
@@ -177,68 +130,35 @@
     </footer>
   </div>
   
-</article>
-
-
+    
+<nav id="article-nav">
   
-    <article id="post-To-Do-List" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2014/12/25/To-Do-List/" class="article-date">
-  <time datetime="2014-12-25T10:21:38.000Z" itemprop="datePublished">Dec 25 2014</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+    <a href="/2014/12/31/Pointer-Constantness/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
         
+          Pointer &amp; Constantness
+        
+      </div>
+    </a>
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2014/12/25/To-Do-List/">To Do List</a>
-    </h1>
   
+    <a href="/2014/12/25/To-Do-List/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">To Do List</div>
+    </a>
+  
+</nav>
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="C++_to_do">C++ to do</h3>
-<ol>
-<li>Function pointer</li>
-<li>Lambda expression</li>
-<li>Pointer to pointer to const int?</li>
-</ol>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> i = <span class="number">10</span>;</div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> *ip = &i;</div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> **ipp = &ip;</div><div class="line"><span class="comment">// compiles ok;</span></div><div class="line"><span class="comment">// but why</span></div><div class="line"><span class="keyword">int</span> i = <span class="number">10</span>;</div><div class="line"><span class="keyword">int</span> *ip = &i;</div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> **ipp = &ip;</div><div class="line"><span class="comment">// does not compile?</span></div></pre></td></tr></table></figure>
-
-<h3 id="Other_things">Other things</h3>
-<ol>
-<li>Learn HTML, CSS and JavaScript</li>
-<li>Learn Markdown syntax</li>
-<li>Learn Qt</li>
-<li>Preview</li>
-</ol>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-        <a data-url="http://liankaohk.github.io/2014/12/25/To-Do-List/" data-id="ogq72h3l4dz9v0rd" class="article-share-link" data-share="baidu">Share</a>
-      
-
-      
-        <a href="http://liankaohk.github.io/2014/12/25/To-Do-List/#disqus_thread" class="article-comment-link">Comments</a>
-      
-
-      
-    </footer>
-  </div>
   
 </article>
 
 
-  
-  
+  <section id="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
 </section>
         
           <aside id="sidebar">
@@ -307,11 +227,13 @@
 <script>
   var disqus_shortname = 'liankaohk';
   
+  var disqus_url = 'http://liankaohk.github.io/2014/12/28/Makefile/';
+  
   (function(){
     var dsq = document.createElement('script');
     dsq.type = 'text/javascript';
     dsq.async = true;
-    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
   })();
 </script>
