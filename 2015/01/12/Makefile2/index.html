@@ -3,23 +3,17 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Pointer &amp; Constantness | LKのOrigin</title>
+  <title>Generate Makefile Automatically | LKのOrigin</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="1.How to decipher the declarations?
-Use the Right-to-Left RuleHere are some examples:
-1234const int **p1; // p1 is a pointer to pointer to 'int const' (a constant interger)int const **p2; // p2 is a p">
+  <meta name="description" content="1234567891011121314151617181920212223242526272829#!/bin/bashif [ -f ./Makefile -o -f ./makefile ];then	echo 'Makefile already exists'else	objs=''	for file in *.cpp	do	  if [ -f ${file} ];then		  str='">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Pointer & Constantness">
-<meta property="og:url" content="http://liankaohk.github.io/2014/12/31/Pointer-Constantness/">
+<meta property="og:title" content="Generate Makefile Automatically">
+<meta property="og:url" content="http://liankaohk.github.io/2015/01/12/Makefile2/">
 <meta property="og:site_name" content="LKのOrigin">
-<meta property="og:description" content="1.How to decipher the declarations?
-Use the Right-to-Left RuleHere are some examples:
-1234const int **p1; // p1 is a pointer to pointer to 'int const' (a constant interger)int const **p2; // p2 is a p">
+<meta property="og:description" content="1234567891011121314151617181920212223242526272829#!/bin/bashif [ -f ./Makefile -o -f ./makefile ];then	echo 'Makefile already exists'else	objs=''	for file in *.cpp	do	  if [ -f ${file} ];then		  str='">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Pointer & Constantness">
-<meta name="twitter:description" content="1.How to decipher the declarations?
-Use the Right-to-Left RuleHere are some examples:
-1234const int **p1; // p1 is a pointer to pointer to 'int const' (a constant interger)int const **p2; // p2 is a p">
+<meta name="twitter:title" content="Generate Makefile Automatically">
+<meta name="twitter:description" content="1234567891011121314151617181920212223242526272829#!/bin/bashif [ -f ./Makefile -o -f ./makefile ];then	echo 'Makefile already exists'else	objs=''	for file in *.cpp	do	  if [ -f ${file} ];then		  str='">
 
   
   
@@ -69,10 +63,10 @@ Use the Right-to-Left RuleHere are some examples:
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-Pointer-Constantness" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-Makefile2" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2014/12/31/Pointer-Constantness/" class="article-date">
-  <time datetime="2014-12-31T09:13:33.000Z" itemprop="datePublished">Dec 31 2014</time>
+    <a href="/2015/01/12/Makefile2/" class="article-date">
+  <time datetime="2015-01-12T12:50:06.000Z" itemprop="datePublished">Jan 12 2015</time>
 </a>
     
   </div>
@@ -83,7 +77,7 @@ Use the Right-to-Left RuleHere are some examples:
         
   
     <h1 class="article-title" itemprop="name">
-      Pointer &amp; Constantness
+      Generate Makefile Automatically
     </h1>
   
 
@@ -91,31 +85,18 @@ Use the Right-to-Left RuleHere are some examples:
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="1-How_to_decipher_the_declarations?">1.How to decipher the declarations?</h2>
-<p>Use the <span style="color:blue">Right-to-Left Rule</span><br>Here are some examples:</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> **p1; <span class="comment">// p1 is a pointer to pointer to "int const" (a constant interger)</span></div><div class="line"><span class="keyword">int</span> <span class="keyword">const</span> **p2; <span class="comment">// p2 is a pointer to pointer to "const int" (same as above)</span></div><div class="line"><span class="keyword">int</span> *<span class="keyword">const</span> *p3; <span class="comment">// p3 is a pointer to "const pointer" to int</span></div><div class="line"><span class="keyword">int</span> **<span class="keyword">const</span> p4; <span class="comment">// p4 is a "const pointe" to pointer to int</span></div></pre></td></tr></table></figure>
+        <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="shebang">#!/bin/bash</span></div><div class="line"><span class="keyword">if</span> [ <span class="operator">-f</span> ./Makefile -o <span class="operator">-f</span> ./makefile ];<span class="keyword">then</span></div><div class="line">	<span class="built_in">echo</span> <span class="string">"Makefile already exists"</span></div><div class="line"><span class="keyword">else</span></div><div class="line">	objs=<span class="string">""</span></div><div class="line">	<span class="keyword">for</span> file <span class="keyword">in</span> *.cpp</div><div class="line">	<span class="keyword">do</span></div><div class="line">	  <span class="keyword">if</span> [ <span class="operator">-f</span> <span class="variable">${file}</span> ];<span class="keyword">then</span></div><div class="line">		  str=<span class="string">"<span class="variable">${file%.cpp*}</span>.o"</span></div><div class="line">		  objs=<span class="string">"<span class="variable">${objs}</span> <span class="variable">${str}</span>"</span></div><div class="line">	  <span class="keyword">fi</span></div><div class="line">	<span class="keyword">done</span></div><div class="line"></div><div class="line">	<span class="keyword">if</span> [ <span class="variable">${#objs}</span> <span class="operator">-gt</span> <span class="number">0</span> ];<span class="keyword">then</span></div><div class="line">		<span class="built_in">echo</span> <span class="string">"a.out:<span class="variable">${objs}</span>"</span> &gt;&gt; Makefile</div><div class="line">		<span class="built_in">echo</span> <span class="operator">-e</span> <span class="string">"\tg++ -o a.out <span class="variable">${objs}</span>"</span> &gt;&gt; Makefile</div><div class="line">	<span class="keyword">fi</span></div><div class="line"></div><div class="line">	<span class="keyword">for</span> file <span class="keyword">in</span> *.cpp</div><div class="line">	<span class="keyword">do</span></div><div class="line">	  <span class="keyword">if</span> [ <span class="operator">-f</span> <span class="variable">${file}</span> ];<span class="keyword">then</span></div><div class="line">		  g++ -MM <span class="variable">${file}</span> &gt;&gt; Makefile</div><div class="line">	  <span class="keyword">fi</span></div><div class="line">	<span class="keyword">done</span></div><div class="line"></div><div class="line">	<span class="keyword">if</span> [ <span class="operator">-f</span> Makefile <span class="operator">-a</span> <span class="operator">-s</span> Makefile ];<span class="keyword">then</span></div><div class="line">		<span class="built_in">echo</span> <span class="operator">-e</span> <span class="string">"clean:\n\trm -rf a.out *.o"</span> &gt;&gt; Makefile</div><div class="line">	<span class="keyword">fi</span></div><div class="line"><span class="keyword">fi</span></div></pre></td></tr></table></figure>
 
-<p>Reference: <a href="http://stackoverflow.com/questions/336585/what-does-a-const-pointer-to-pointer-mean-in-c-and-in-c" target="_blank" rel="external">What does a const pointer to pointer mean in c and in c++</a><br><a id="more"></a></p>
-<h2 id="2-Why_is_the_following_code_wrong?">2.Why is the following code wrong?</h2>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> i = <span class="number">10</span>;</div><div class="line"><span class="keyword">int</span>* ip = &i;</div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span>** ipp = &ip; <span class="comment">// This line is illegal. Must change the second line to</span></div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span>* ip = &i;</div></pre></td></tr></table></figure>
-
-<p>Because if line 3 is allowed, **ip may be modified implicitely. To see how, look at the following example:</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> i = <span class="number">10</span>;</div><div class="line"><span class="keyword">int</span>* ip;</div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span>** ipp = &ip; <span class="comment">// in reality this is illegal</span></div><div class="line">*ipp = &i; <span class="comment">// this is allowed since both *ipp and &i have type "const int *",</span></div><div class="line">	   	   <span class="comment">// and now *ipp, which is ip, holds the address of i</span></div><div class="line">*ip = <span class="number">11</span>;  <span class="comment">// now we have modified i!!!</span></div></pre></td></tr></table></figure>
-
-<p>More generally, C++ allows the implicit conversion of T* to const T*, because that cannot lead to a situation like the above where a constant value is modified.<br>And</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> *<span class="keyword">const</span> *ipp = &ip;</div></pre></td></tr></table></figure>
-
-<p>would be OK because the line “*ipp = &i;” would give an error, since *ipp is a constant.<br>Reference: <a href="http://www.cplusplus.com/forum/general/12002/" target="_blank" rel="external">pointer to pointer - const correctness - C++ Forum</a></p>
 
       
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://liankaohk.github.io/2014/12/31/Pointer-Constantness/" data-id="4cm7t60rydbt6ckf" class="article-share-link" data-share="baidu">Share</a>
+        <a data-url="http://liankaohk.github.io/2015/01/12/Makefile2/" data-id="ynecnz6as6wvoa93" class="article-share-link" data-share="baidu">Share</a>
       
 
       
-        <a href="http://liankaohk.github.io/2014/12/31/Pointer-Constantness/#disqus_thread" class="article-comment-link">Comments</a>
+        <a href="http://liankaohk.github.io/2015/01/12/Makefile2/#disqus_thread" class="article-comment-link">Comments</a>
       
 
       
@@ -125,19 +106,10 @@ Use the Right-to-Left RuleHere are some examples:
     
 <nav id="article-nav">
   
-    <a href="/2015/01/12/Makefile2/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          Generate Makefile Automatically
-        
-      </div>
-    </a>
   
-  
-    <a href="/2014/12/28/Makefile/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2014/12/31/Pointer-Constantness/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Makefile</div>
+      <div class="article-nav-title">Pointer &amp; Constantness</div>
     </a>
   
 </nav>
@@ -223,7 +195,7 @@ Use the Right-to-Left RuleHere are some examples:
 <script>
   var disqus_shortname = 'liankaohk';
   
-  var disqus_url = 'http://liankaohk.github.io/2014/12/31/Pointer-Constantness/';
+  var disqus_url = 'http://liankaohk.github.io/2015/01/12/Makefile2/';
   
   (function(){
     var dsq = document.createElement('script');
